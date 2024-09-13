@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace BlockSpamCallsPhp;
@@ -10,8 +11,7 @@ use BlockSpamCallsPhp\Spam\Filter\Adapter\{
 };
 use BlockSpamCallsPhp\Spam\FilterIterator\IsSpamBlockerAddonFilterIterator;
 use Laminas\Filter\Word\UnderscoreToCamelCase;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
 use Psr\Log\LoggerInterface;
 use Twilio\TwiML\VoiceResponse;
 
@@ -27,8 +27,7 @@ readonly class SpamCallChecker
         ServerRequestInterface $request,
         ResponseInterface $response,
         array $args
-    ): ResponseInterface
-    {
+    ): ResponseInterface {
         $parsedBody = $request->getParsedBody();
 
         $response = $response->withStatus(200);
