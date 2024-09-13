@@ -1,6 +1,6 @@
 {
     "name": "settermjd/block-spam-calls-php",
-    "description": "This package uses Twilio Add-ons from the Twilio Add-ons Marketplace to block unwanted voice callss",
+    "description": "This package uses Twilio Add-ons from the Twilio Add-ons Marketplace to block unwanted voice calls",
     "type": "project",
     "require": {
         "laminas/laminas-filter": "^2.5",
