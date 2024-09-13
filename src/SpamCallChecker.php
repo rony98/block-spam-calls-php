@@ -19,7 +19,8 @@ readonly class SpamCallChecker
 {
     private VoiceResponse $twiml;
 
-    public function __construct(private LoggerInterface $logger){
+    public function __construct(private ?LoggerInterface $logger = null)
+    {
         $this->twiml = new VoiceResponse();
     }
 
