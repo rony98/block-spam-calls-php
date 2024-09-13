@@ -20,6 +20,13 @@ readonly class NomoroboSpamscoreFilterAdapter implements SpamFilterAdapterInterf
             return true;
         }
 
-        return $this->options["result"]["score"] === self::IS_ROBOCALLER;
+        if ($this->options["status"] === "successful"
+            && ! empty($this->options["result"])
+            && $this->options["result"]["score"] === self::IS_ROBOCALLER
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }

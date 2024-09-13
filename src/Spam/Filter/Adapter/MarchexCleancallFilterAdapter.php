@@ -16,8 +16,8 @@ class MarchexCleancallFilterAdapter implements SpamFilterAdapterInterface
             return true;
         }
 
-        return (
-            $this->options["status"] === "successful" && $this->options["result"]["score"] === 1
-        );
+        return $this->options["status"] === "successful" 
+            && ! empty($this->options["result"]["result"])
+            && $this->options["result"]["result"]["recommendation"] === "BLOCK";
     }
 }
