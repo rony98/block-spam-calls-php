@@ -36,6 +36,11 @@ readonly class SpamCallChecker
 
         if (empty($parsedBody["AddOns"]["results"])) {
             $this->setSuccessTwiML();
+            $response
+                ->getBody()
+                ->write($this->twiml->asXML());
+
+            return $response;
         }
 
         if ($this->isSpamCall($parsedBody["AddOns"]["results"])) {
