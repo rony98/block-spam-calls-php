@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace BlockSpamCallsPhp;
 
 use ArrayIterator;
-use BlockSpamCallsPhp\Spam\Filter\Adapter\MarchexCleancallFilterAdapter;
-use BlockSpamCallsPhp\Spam\Filter\Adapter\NomoroboSpamscoreFilterAdapter;
-use BlockSpamCallsPhp\Spam\Filter\Adapter\NullFilterAdapter;
-use BlockSpamCallsPhp\Spam\Filter\Adapter\SpamFilterAdapterInterface;
+use BlockSpamCallsPhp\Spam\Filter\Adapter\{
+    NullFilterAdapter,
+    SpamFilterAdapterInterface
+};
 use BlockSpamCallsPhp\Spam\FilterIterator\IsSpamBlockerAddonFilterIterator;
 use Laminas\Filter\Word\UnderscoreToCamelCase;
 use Psr\Http\Message\ResponseInterface;
@@ -57,7 +57,7 @@ readonly class SpamCallChecker
      */
     private function getSpamBlockerAdapter(string $spamBlocker, array $addonOptions): ?SpamFilterAdapterInterface
     {
-        $className = (new UnderscoreToCamelCase())->filter($spamBlocker);
+        $className = "\BlockSpamCallsPhp\Spam\Filter\Adapter\\" . (new UnderscoreToCamelCase())->filter($spamBlocker) . "FilterAdapter";
         return (class_exists($className))
             ? new $className($addonOptions)
             : new NullFilterAdapter();
