@@ -1,0 +1,50 @@
+{
+    "name": "settermjd/block-spam-calls-php",
+    "description": "This package uses Twilio Add-ons from the Twilio Add-ons Marketplace to block unwanted voice calls",
+    "type": "project",
+    "require": {
+        "laminas/laminas-filter": "^2.5",
+        "monolog/monolog": "^3.7",
+        "php-di/php-di": "^7.0",
+        "slim/psr7": "^1.7",
+        "slim/slim": "^4.14",
+        "twilio/sdk": "^8.3",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpunit/phpunit": "^10.5",
+        "psalm/plugin-phpunit": "^0.19.0",
+        "squizlabs/php_codesniffer": "^3.10",
+        "vimeo/psalm": "*"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "BlockSpamCallsPhp\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BlockSpamCallsPhpTest\\": "test/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Matthew Setter",
+            "email": "matthew@matthewsetter.com"
+        }
+    ],
+    "scripts": {
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -S 0.0.0.0:8080 -t public/"
+        ],
+        "test": "phpunit --colors=always"
+    }
+}
