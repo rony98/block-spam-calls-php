@@ -38,7 +38,7 @@ readonly class SpamCallChecker
             $this->setSuccessTwiML();
             $response
                 ->getBody()
-                ->("test");
+                ->write("test");
 //                ->write($this->twiml->asXML());
 
             return $response;
