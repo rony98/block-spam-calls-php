@@ -34,6 +34,8 @@ readonly class SpamCallChecker
         $response = $response->withStatus(200);
         $response = $response->withHeader("Content-Type", "application/xml");
 
+        return $parsedBody["AddOns"]["results"];
+
         if (empty($parsedBody["AddOns"]["results"])) {
             $this->setSuccessTwiML();
             $response
