@@ -47,4 +47,15 @@ $app = AppFactory::create();
 
 $app->post('/', SpamCallChecker::class);
 
+$app->get('/health', function ($request, $response, $args) {
+    $healthData = [
+        'status' => 'healthy',
+        'timestamp' => date('c'),
+        'service' => 'spam-detection',
+        'version' => '1.0.0'
+    ];
+
+    return $response->withJson($healthData);
+});
+
 $app->run();
