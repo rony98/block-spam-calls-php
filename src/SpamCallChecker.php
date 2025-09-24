@@ -37,18 +37,14 @@ readonly class SpamCallChecker
         $addOns = null;
         if (isset($parsedBody["AddOns"]) && !empty($parsedBody["AddOns"])) {
             $addOns = json_decode($parsedBody["AddOns"], true);
-
-            error_log("Decoded AddOns: " . print_r($addOns, true));
         }
 
         if (empty($addOns) || empty($addOns["results"])) {
             error_log("AddOns results are empty - allowing call by default");
 
-            $this->setSuccessTwiML();
             $response
                 ->getBody()
-                ->write("test");
-//                ->write($this->twiml->asXML());
+                ->write($this->twiml->asXML());
 
             return $response;
         }
@@ -58,8 +54,6 @@ readonly class SpamCallChecker
         if ($this->isSpamCall($results)) {
             $response = $response->withStatus(412);
             $this->twiml->reject();
-        } else {
-            $this->setSuccessTwiML();
         }
 
         $response
@@ -96,14 +90,5 @@ readonly class SpamCallChecker
         }
 
         return $isSpam;
-    }
-
-    private function setSuccessTwiML(): void
-    {
-        $this->twiml->say(
-            "Welcome to the jungle.",
-            ["voice" => "woman", "language" => "en-gb"]
-        );
-        $this->twiml->hangup();
     }
 }
