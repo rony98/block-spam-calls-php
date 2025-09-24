@@ -34,10 +34,16 @@ readonly class SpamCallChecker
         $response = $response->withStatus(200);
         $response = $response->withHeader("Content-Type", "application/xml");
 
-        $response
-            ->getBody()
-            ->write(serialize($parsedBody));
-        return $response;
+        // Debug: Log the entire parsed body
+        error_log("Full parsed body: " . print_r($parsedBody, true));
+
+        // Debug: Check specifically what AddOns contains
+        if (isset($parsedBody["AddOns"])) {
+            error_log("AddOns type: " . gettype($parsedBody["AddOns"]));
+            error_log("AddOns content: " . print_r($parsedBody["AddOns"], true));
+        } else {
+            error_log("AddOns key not found in parsed body");
+        }
 
         if (empty($parsedBody["AddOns"]["results"])) {
             $this->setSuccessTwiML();
