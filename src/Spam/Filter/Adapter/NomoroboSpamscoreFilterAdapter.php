@@ -8,7 +8,7 @@ readonly class NomoroboSpamscoreFilterAdapter implements SpamFilterAdapterInterf
     /**
      * @see https://console.twilio.com/us1/develop/add-ons/catalog/XB06d5274893cc9af4198667d2f7d74d09
      */
-    const int IS_ROBOCALLER = 0;
+    const int IS_ROBOCALLER = 1;
 
     public function __construct(public array $options = []){}
 
