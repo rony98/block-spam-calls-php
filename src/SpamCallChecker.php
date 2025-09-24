@@ -34,18 +34,16 @@ readonly class SpamCallChecker
         $response = $response->withStatus(200);
         $response = $response->withHeader("Content-Type", "application/xml");
 
-        // Debug: Log the entire parsed body
-        error_log("Full parsed body: " . print_r($parsedBody, true));
+        $addOns = null;
+        if (isset($parsedBody["AddOns"]) && !empty($parsedBody["AddOns"])) {
+            $addOns = json_decode($parsedBody["AddOns"], true);
 
-        // Debug: Check specifically what AddOns contains
-        if (isset($parsedBody["AddOns"])) {
-            error_log("AddOns type: " . gettype($parsedBody["AddOns"]));
-            error_log("AddOns content: " . print_r($parsedBody["AddOns"], true));
-        } else {
-            error_log("AddOns key not found in parsed body");
+            error_log("Decoded AddOns: " . print_r($addOns, true));
         }
 
-        if (empty($parsedBody["AddOns"]["results"])) {
+        if (empty($addOns) || empty($addOns["results"])) {
+            error_log("AddOns results are empty - allowing call by default");
+
             $this->setSuccessTwiML();
             $response
                 ->getBody()
@@ -55,7 +53,9 @@ readonly class SpamCallChecker
             return $response;
         }
 
-        if ($this->isSpamCall($parsedBody["AddOns"]["results"])) {
+        $results = $addOns["results"];
+
+        if ($this->isSpamCall($results)) {
             $response = $response->withStatus(412);
             $this->twiml->reject();
         } else {
