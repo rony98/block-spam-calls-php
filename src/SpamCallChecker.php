@@ -36,7 +36,7 @@ readonly class SpamCallChecker
 
         return $response
             ->getBody()
-            ->write($parsedBody);
+            ->write(serialize($parsedBody));
 
         if (empty($parsedBody["AddOns"]["results"])) {
             $this->setSuccessTwiML();
